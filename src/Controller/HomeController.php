@@ -8,13 +8,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    private $studio;
-
-    public function __construct(spStudio $studio)
-    {
-        $this->studio = $studio;
-    }
-
     /**
      * @Route("/", name="home")
      */
