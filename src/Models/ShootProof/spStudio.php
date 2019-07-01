@@ -9,9 +9,9 @@ class spStudio
 {
     private $_spApi;
 
-    public function __construct(spApi $spApi)
+    public function __construct($accessToken)
     {
-        $this->_spApi = $spApi;
+        $this->_spApi = new spApi($accessToken);
     }
 
     private function getCollection(String $path)
