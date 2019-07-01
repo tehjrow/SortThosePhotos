@@ -20,3 +20,5 @@
 ###> PhpStorm files ###
 /.idea
 ###< PhpStorm files ###
+
+.DS_Store
