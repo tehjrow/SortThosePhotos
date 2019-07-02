@@ -12,7 +12,8 @@
                     </div>
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item text-center"><span class="badge {% if isKeyValid %}badge-success {% else %}badge-danger{% endif %}">{% if isKeyValid %}Connected{% else %}Not Connected{% endif %}</span></li>
+                            <div class="list-group-item text-center"><span class="badge {% if isKeyValid %}badge-success {% else %}badge-danger{% endif %}">{% if isKeyValid %}Connected{% else %}Not Connected{% endif %}</span></div>
+                            <div class="list-group-item text-center"><a href="/authorize/shootproof"><button class="btn btn-primary" type="button">Authorize</button></a></div>
                         </ul>
                     </div>
                 </div>
