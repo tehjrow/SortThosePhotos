@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\SpIntegrationCredentials;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\LoginFormAuthenticator;
@@ -37,6 +38,12 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             // do anything else you need here, like send an email
+
+            $spIntegrationCredentials = new SpIntegrationCredentials();
+            $spIntegrationCredentials->setUserId($user->getId());
+
+            $entityManager->persist($spIntegrationCredentials);
+            $entityManager->flush();
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
