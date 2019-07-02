@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\SpAppCredentials;
 use App\Entity\SpIntegrationCredentials;
 use App\Models\ShootProof\spStudio;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,12 +43,19 @@ class SettingsController extends AbstractController
      */
     public function enableSpIntegration()
     {
+        $spAppCredentials = $this->
+            getDoctrine()->
+            getRepository(SpAppCredentials::class)->
+            findOneBy([
+                'id' => 1
+            ]);
+        
         $data = array (
-            'response_type' => 'code',
-            'client_id' => 'NeedToFigureOutWhereToPutThis',
-            'redirect_uri' => 'https://localhost:8000/authorize/shootproof/response',
-            'scope' => 'studio',
-            'state' => 'figurethisoutlater'
+            'response_type' => $spAppCredentials->getResponseType(),
+            'client_id' => $spAppCredentials->getClientId(),
+            'redirect_uri' =>$spAppCredentials->getRedirectUri(),
+            'scope' => $spAppCredentials->getScope(),
+            'state' => $spAppCredentials->getState()
         );
 
         $params = '';
