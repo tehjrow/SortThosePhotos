@@ -27,11 +27,10 @@ class SettingsController extends AbstractController
 
         $spStudio = new spStudio($spIntegrationsCredentials->getAccessToken());
 
-        $brands = $spStudio->getBrands()->getItems();
-        dump($brands);
-        die();
+        $isKeyValid = $spStudio->isKeyValid();
+
         return $this->render('settings/index.html.twig', [
-            'controller_name' => 'SettingsController',
+            'isKeyValid' => $isKeyValid,
         ]);
     }
 }
