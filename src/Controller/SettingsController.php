@@ -49,11 +49,11 @@ class SettingsController extends AbstractController
             findOneBy([
                 'id' => 1
             ]);
-        
+
         $data = array (
             'response_type' => $spAppCredentials->getResponseType(),
             'client_id' => $spAppCredentials->getClientId(),
-            'redirect_uri' =>$spAppCredentials->getRedirectUri(),
+            'redirect_uri' => urlencode($spAppCredentials->getRedirectUri()),
             'scope' => $spAppCredentials->getScope(),
             'state' => $spAppCredentials->getState()
         );
@@ -75,11 +75,57 @@ class SettingsController extends AbstractController
     public function spIntegrationResponse(Request $request)
     {
         $code = $request->query->get('code');
+        $userId = $this->getUser()->getId();
+
+
+        // TODO Need to check this and be sure it's the same that was sent
         $state = $request->query->get('state');
 
-        return $this->json([
+        $spAppCredentials = $this->
+            getDoctrine()->
+            getRepository(SpAppCredentials::class)->
+            findOneBy([
+                'id' => 1
+            ]);
+
+        $spIntegrationCredentials = $this->
+            getDoctrine()->
+            getRepository(SpIntegrationCredentials::class)->
+            findOneBy([
+                'userId' => $userId
+            ]);
+
+        $data = array(
+            'grant_type' => 'authorization_code',
+            'client_id' => $spAppCredentials->getClientId(),
             'code' => $code,
-            'state' => $state
-        ]);
+            'redirect_uri' => urlencode($spAppCredentials->getRedirectUri()),
+            'scope' => $spAppCredentials->getScope()
+        );
+
+        $params = '';
+        foreach($data as $key=>$value)
+            $params .= $key.'='.$value.'&';
+
+        $params = trim($params, '&');
+
+        $_curl = curl_init();
+        curl_setopt($_curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($_curl, CURLOPT_URL, $_ENV['BASE_SP_AUTH_URL'] . '/token' . '?' . $params);
+        curl_setopt($_curl, CURLOPT_POST, 1);
+        curl_setopt($_curl, CURLOPT_POSTFIELDS, '');
+        $_response = json_decode(curl_exec($_curl));
+
+        $spIntegrationCredentials->setAccessToken($_response->access_token);
+        $spIntegrationCredentials->setRefreshToken($_response->refresh_token);
+        $spIntegrationCredentials->setExpiresIn($_response->expires_in);
+        $spIntegrationCredentials->setTokenType($_response->token_type);
+        $spIntegrationCredentials->setScope($_response->scope);
+        $spIntegrationCredentials->setStat($_response->stat);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($spIntegrationCredentials);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('settings');
     }
 }
