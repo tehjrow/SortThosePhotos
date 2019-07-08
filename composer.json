@@ -26,8 +26,9 @@
         "symfony/validator": "4.3.*",
         "symfony/web-link": "4.3.*",
         "symfony/yaml": "4.3.*",
-      "ext-curl": "*",
-      "ext-json": "*"
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-sodium": "*"
     },
     "require-dev": {
         "symfony/debug-pack": "*",
