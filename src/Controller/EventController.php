@@ -30,15 +30,13 @@ class EventController extends AbstractController
      */
     public function new(EntityManagerInterface $em, Request $request)
     {
-        // https://symfonycasts.com/screencast/symfony-forms/form-submit#play
         $form = $this->createForm(EventFormType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
-            $data = $form->getData();
-            $event = new Event();
-            $event->setName($data['name']);
+            /** @var Event $event */
+            $event = $form->getData();
 
             $em->persist($event);
             $em->flush();
