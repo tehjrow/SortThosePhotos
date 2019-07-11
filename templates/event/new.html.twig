@@ -4,6 +4,10 @@
 
 {% block body %}
 
+    {{ form_start(eventForm) }}
+        {{ form_widget(eventForm) }}
 
+        <button type="submit" class="btn btn-primary">Create</button>
+    {{ form_end(eventForm) }}
 
 {% endblock %}
