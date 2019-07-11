@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\EventFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -22,6 +23,10 @@ class EventController extends AbstractController
      */
     public function new()
     {
-        return $this->render('event/new.html.twig');
+        $form = $this->createForm(EventFormType::class);
+
+        return $this->render('event/new.html.twig',[
+            'eventForm' => $form->createView()
+        ]);
     }
 }
