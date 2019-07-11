@@ -26,6 +26,11 @@ class Event
      */
     private $spId;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $userId;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +56,18 @@ class Event
     public function setSpId(?int $spId): self
     {
         $this->spId = $spId;
+
+        return $this;
+    }
+
+    public function getUserId(): ?int
+    {
+        return $this->userId;
+    }
+
+    public function setUserId(int $userId): self
+    {
+        $this->userId = $userId;
 
         return $this;
     }
