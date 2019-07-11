@@ -5,10 +5,14 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Form\EventFormType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @IsGranted("ROLE_USER")
+ */
 class EventController extends AbstractController
 {
     /**
@@ -37,6 +41,7 @@ class EventController extends AbstractController
         {
             /** @var Event $event */
             $event = $form->getData();
+            $event->setUserId($this->getUser()->getId());
 
             $em->persist($event);
             $em->flush();
