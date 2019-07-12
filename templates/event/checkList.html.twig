@@ -1,0 +1,10 @@
+{% block checkList %}
+    <div class="card">
+        <h5 class="card-header">Event check list</h5>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">{% if event.id %}<img src="{{ asset('images/greencheck.png') }}">{% endif %}Create Event</li>
+            <li class="list-group-item">Upload CSV</li>
+            <li class="list-group-item">Receive QR Codes</li>
+        </ul>
+    </div>
+{% endblock checkList %}
