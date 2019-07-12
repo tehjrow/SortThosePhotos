@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Form\EventFormType;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\Integer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class EventController extends AbstractController
 {
     /**
-     * @Route("/event", name="event")
+     * @Route("/events", name="events")
      */
     public function index()
     {
@@ -24,7 +25,7 @@ class EventController extends AbstractController
             ->getRepository(Event::class)
             ->findAll();
 
-        return $this->render('event/index.html.twig', [
+        return $this->render('event/events.html.twig', [
             'events' => $events,
         ]);
     }
