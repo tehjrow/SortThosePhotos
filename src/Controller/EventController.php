@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Form\EventFormType;
 use Doctrine\ORM\EntityManagerInterface;
-use phpDocumentor\Reflection\Types\Integer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -69,6 +68,8 @@ class EventController extends AbstractController
             return $this->redirectToRoute('events');
         }
 
-        return $this->json($event);
+        return $this->render('event/event.html.twig',[
+            'event' => $event
+        ]);
     }
 }
