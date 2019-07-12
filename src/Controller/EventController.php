@@ -58,8 +58,17 @@ class EventController extends AbstractController
     /**
      * @Route("/event/{id}", name="event", requirements={"id"="\d+"})
      */
-    public function get($id)
+    public function event(EntityManagerInterface $em, $id)
     {
-        return $this->json(['id' => $id]);
+        $event = $this->getDoctrine()
+            ->getRepository(Event::class)
+            ->find($id);
+
+        if (!$event)
+        {
+            return $this->redirectToRoute('events');
+        }
+
+        return $this->json($event);
     }
 }
