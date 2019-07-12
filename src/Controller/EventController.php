@@ -47,11 +47,19 @@ class EventController extends AbstractController
             $em->persist($event);
             $em->flush();
 
-            return $this->redirectToRoute('event');
+            return $this->redirectToRoute('event',['id' => $event->getId()]);
         }
 
         return $this->render('event/new.html.twig',[
             'eventForm' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/event/{id}", name="event", requirements={"id"="\d+"})
+     */
+    public function get($id)
+    {
+        return $this->json(['id' => $id]);
     }
 }
