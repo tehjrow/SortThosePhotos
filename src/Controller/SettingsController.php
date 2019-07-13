@@ -50,6 +50,11 @@ class SettingsController extends AbstractController
                 'id' => 1
             ]);
 
+        if (is_null($spAppCredentials))
+        {
+            return new Response("No ShootProof App credentials found on server, please contact the admin.", 500);
+        }
+
         $data = array (
             'response_type' => $spAppCredentials->getResponseType(),
             'client_id' => $spAppCredentials->getClientId(),
