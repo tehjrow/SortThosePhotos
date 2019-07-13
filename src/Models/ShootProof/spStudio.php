@@ -36,6 +36,11 @@ class spStudio
     public function isKeyValid()
     {
         $response = json_decode($this->_spApi->get('/studio'));
+        if (is_null($response))
+        {
+            return false;
+        }
+
         if((isset($response->status)) && ($response->status == 401))
         {
             return false;
