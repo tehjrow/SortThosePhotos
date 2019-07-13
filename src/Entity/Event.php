@@ -24,12 +24,27 @@ class Event
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $spId;
+    private $userId;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="boolean")
      */
-    private $userId;
+    private $hasUploadedCsv;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $hasDownloadedQrCodes;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $hasUploadedImages;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $hasPublishedToService;
 
     public function getId(): ?int
     {
@@ -48,18 +63,6 @@ class Event
         return $this;
     }
 
-    public function getSpId(): ?int
-    {
-        return $this->spId;
-    }
-
-    public function setSpId(?int $spId): self
-    {
-        $this->spId = $spId;
-
-        return $this;
-    }
-
     public function getUserId(): ?int
     {
         return $this->userId;
@@ -68,6 +71,54 @@ class Event
     public function setUserId(int $userId): self
     {
         $this->userId = $userId;
+
+        return $this;
+    }
+
+    public function getHasUploadedCsv(): ?bool
+    {
+        return $this->hasUploadedCsv;
+    }
+
+    public function setHasUploadedCsv(bool $hasUploadedCsv): self
+    {
+        $this->hasUploadedCsv = $hasUploadedCsv;
+
+        return $this;
+    }
+
+    public function getHasDownloadedQrCodes(): ?bool
+    {
+        return $this->hasDownloadedQrCodes;
+    }
+
+    public function setHasDownloadedQrCodes(bool $hasDownloadedQrCodes): self
+    {
+        $this->hasDownloadedQrCodes = $hasDownloadedQrCodes;
+
+        return $this;
+    }
+
+    public function getHasUploadedImages(): ?bool
+    {
+        return $this->hasUploadedImages;
+    }
+
+    public function setHasUploadedImages(bool $hasUploadedImages): self
+    {
+        $this->hasUploadedImages = $hasUploadedImages;
+
+        return $this;
+    }
+
+    public function getHasPublishedToService(): ?bool
+    {
+        return $this->hasPublishedToService;
+    }
+
+    public function setHasPublishedToService(bool $hasPublishedToService): self
+    {
+        $this->hasPublishedToService = $hasPublishedToService;
 
         return $this;
     }
