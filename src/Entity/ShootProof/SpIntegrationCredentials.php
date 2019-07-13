@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\ShootProof;
 
 use Doctrine\ORM\Mapping as ORM;
 
