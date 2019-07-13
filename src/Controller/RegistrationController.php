@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\SpIntegrationCredentials;
+use App\Entity\ShootProof\SpIntegrationCredentials;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\LoginFormAuthenticator;
