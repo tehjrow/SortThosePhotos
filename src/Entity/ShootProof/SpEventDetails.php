@@ -11,47 +11,67 @@ class SpEventDetails
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     */
-    private $id;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
      */
     private $eventId;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $brandId;
+    private $spEventId;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $spBrandId;
 
-    public function getEventId(): ?int
+    /**
+     * @return mixed
+     */
+    public function getEventId()
     {
         return $this->eventId;
     }
 
-    public function setEventId(?int $eventId): self
+    /**
+     * @param mixed $eventId
+     */
+    public function setEventId($eventId): void
     {
         $this->eventId = $eventId;
-
-        return $this;
     }
 
-    public function getBrandId(): ?int
+    /**
+     * @return mixed
+     */
+    public function getSpEventId()
     {
-        return $this->brandId;
+        return $this->spEventId;
     }
 
-    public function setBrandId(?int $brandId): self
+    /**
+     * @param mixed $spEventId
+     */
+    public function setSpEventId($spEventId): void
     {
-        $this->brandId = $brandId;
-
-        return $this;
+        $this->spEventId = $spEventId;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getSpBrandId()
+    {
+        return $this->spBrandId;
+    }
+
+    /**
+     * @param mixed $spBrandId
+     */
+    public function setSpBrandId($spBrandId): void
+    {
+        $this->spBrandId = $spBrandId;
+    }
+
+
 }
