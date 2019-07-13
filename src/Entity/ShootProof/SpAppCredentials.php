@@ -5,7 +5,7 @@ namespace App\Entity\ShootProof;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\SpAppCredentialsRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ShootProof\SpAppCredentialsRepository")
  */
 class SpAppCredentials
 {

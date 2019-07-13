@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\ShootProof;
 
-use App\Entity\ShootProof\SpAppCredentials;
+use App\Entity\ShootProof\SpIntegrationCredentials;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method SpAppCredentials|null find($id, $lockMode = null, $lockVersion = null)
- * @method SpAppCredentials|null findOneBy(array $criteria, array $orderBy = null)
- * @method SpAppCredentials[]    findAll()
- * @method SpAppCredentials[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method SpIntegrationCredentials|null find($id, $lockMode = null, $lockVersion = null)
+ * @method SpIntegrationCredentials|null findOneBy(array $criteria, array $orderBy = null)
+ * @method SpIntegrationCredentials[]    findAll()
+ * @method SpIntegrationCredentials[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SpAppCredentialsRepository extends ServiceEntityRepository
+class SpIntegrationCredentialsRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, SpAppCredentials::class);
+        parent::__construct($registry, SpIntegrationCredentials::class);
     }
 
     // /**
-    //  * @return SpAppCredentials[] Returns an array of SpAppCredentials objects
+    //  * @return SpIntegrationCredentials[] Returns an array of SpIntegrationCredentials objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class SpAppCredentialsRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?SpAppCredentials
+    public function findOneBySomeField($value): ?SpIntegrationCredentials
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.exampleField = :val')
