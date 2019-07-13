@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Form\EventFormType;
+use App\Models\ViewModels\EventViewModel;
+use App\Models\ViewModels\ServiceDetails;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -68,8 +70,10 @@ class EventController extends AbstractController
             return $this->redirectToRoute('events');
         }
 
+        $eventViewModel = new EventViewModel($event);
+
         return $this->render('event/event.html.twig',[
-            'event' => $event
+            'eventViewModel' => $eventViewModel
         ]);
     }
 }
