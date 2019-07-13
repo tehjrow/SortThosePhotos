@@ -29,22 +29,22 @@ class Event
     /**
      * @ORM\Column(type="boolean")
      */
-    private $hasUploadedCsv;
+    private $hasUploadedCsv = false;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $hasDownloadedQrCodes;
+    private $hasDownloadedQrCodes = false;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $hasUploadedImages;
+    private $hasUploadedImages = false;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $hasPublishedToService;
+    private $hasPublishedToService = false;
 
     public function getId(): ?int
     {
