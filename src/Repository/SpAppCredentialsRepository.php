@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\SpAppCredentials;
+use App\Entity\ShootProof\SpAppCredentials;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 

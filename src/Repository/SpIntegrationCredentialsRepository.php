@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\SpIntegrationCredentials;
+use App\Entity\ShootProof\SpIntegrationCredentials;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
