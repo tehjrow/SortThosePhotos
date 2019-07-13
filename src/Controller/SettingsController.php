@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\SpAppCredentials;
-use App\Entity\SpIntegrationCredentials;
+use App\Entity\ShootProof\SpAppCredentials;
+use App\Entity\ShootProof\SpIntegrationCredentials;
 use App\Models\ShootProof\spStudio;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
