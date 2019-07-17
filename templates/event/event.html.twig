@@ -14,7 +14,7 @@
                 </div>
                 <div class="row mt-3 justify-content-md-center">
                     <div class="col-2">
-                        <button class="btn btn-primary btn-block">Upload CSV</button>
+                        <a href="{{ path('event_csv', {'id':eventViewModel.event.id}) }}"><button class="btn btn-primary btn-block">Upload CSV</button></a>
                     </div>
                     <div class="col-2">
                         <button class="btn btn-primary btn-block">Get QR Codes</button>
