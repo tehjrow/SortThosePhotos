@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @IsGranted("ROLE_USER")
@@ -75,5 +76,13 @@ class EventController extends AbstractController
         return $this->render('event/event.html.twig',[
             'eventViewModel' => $eventViewModel
         ]);
+    }
+
+    /**
+     * @Route("/event/{id}/csv", name="event_csv", requirements={"id"="\d+"})
+     */
+    public function eventUploadCsv($id)
+    {
+        return $this->render('csv/csv.html.twig');
     }
 }
