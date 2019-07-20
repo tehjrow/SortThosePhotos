@@ -20,15 +20,22 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Class EventController
+ * @package App\Controller
  * @IsGranted("ROLE_USER")
+ *
+ * Handle requests for the even resource
  */
 class EventController extends AbstractController
 {
     /**
      * @Route("/events", name="events")
+     *
+     * Returns events view with list of events
      */
     public function index()
     {
+        // TODO Limit events to current user
         $events = $this->getDoctrine()
             ->getRepository(Event::class)
             ->findAll();
@@ -40,6 +47,8 @@ class EventController extends AbstractController
 
     /**
      * @Route("/event/new", name="event_new")
+     *
+     * Create new event for user
      */
     public function new(EntityManagerInterface $em, Request $request)
     {
@@ -65,6 +74,8 @@ class EventController extends AbstractController
 
     /**
      * @Route("/event/{id}", name="event", requirements={"id"="\d+"})
+     *
+     * Return single even and view
      */
     public function event(EntityManagerInterface $em, $id)
     {

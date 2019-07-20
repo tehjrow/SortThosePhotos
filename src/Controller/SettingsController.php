@@ -17,15 +17,24 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class SettingsController
+ * @package App\Controller
+ *
+ * Handle settings resource
+ */
 class SettingsController extends AbstractController
 {
     /**
      * @Route("/settings", name="settings")
      *
      * @IsGranted("ROLE_USER")
+     *
+     * Return settings and settings view
      */
     public function index()
     {
+        // TODO create settings viewmodel
         $spIntegrationsCredentials = $this->
             getDoctrine()->
             getRepository(SpIntegrationCredentials::class)->
@@ -46,6 +55,8 @@ class SettingsController extends AbstractController
      * @Route("/authorize/shootproof", name="auth_shootproof")
      *
      * @IsGranted("ROLE_USER")
+     *
+     * Redirect to ShootProof authorization page
      */
     public function enableSpIntegration()
     {
@@ -82,9 +93,12 @@ class SettingsController extends AbstractController
      * @Route("/authorize/shootproof/response", name="auth_shootproof_respose")
      *
      * @IsGranted("ROLE_USER")
+     *
+     * Gets response code from ShootProof authorization, requests access token and stores it
      */
     public function spIntegrationResponse(Request $request)
     {
+        // TODO break this function up
         $code = $request->query->get('code');
         $userId = $this->getUser()->getId();
 

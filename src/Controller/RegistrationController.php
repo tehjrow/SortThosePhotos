@@ -23,6 +23,8 @@ class RegistrationController extends AbstractController
 {
     /**
      * @Route("/register", name="app_register")
+     *
+     * Register new user and create spIntegrationCredentials row for user
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
     {

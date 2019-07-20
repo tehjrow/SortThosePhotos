@@ -12,6 +12,12 @@ use App\Models\ShootProof\spStudio;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class HomeController
+ * @package App\Controller
+ *
+ * Handle requests for home
+ */
 class HomeController extends AbstractController
 {
     /**
