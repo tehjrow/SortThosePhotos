@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * SortThosePhotos
+ *
+ * A tool to help high volume photographers sort their photos
+ */
 
 namespace App\Models\ViewModels;
 

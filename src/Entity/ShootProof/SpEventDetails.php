@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * SortThosePhotos
+ *
+ * A tool to help high volume photographers sort their photos
+ */
+
 namespace App\Entity\ShootProof;
 
 use Doctrine\ORM\Mapping as ORM;

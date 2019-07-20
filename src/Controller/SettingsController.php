@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * SortThosePhotos
+ *
+ * A tool to help high volume photographers sort their photos
+ */
+
 namespace App\Controller;
 
 use App\Entity\ShootProof\SpAppCredentials;

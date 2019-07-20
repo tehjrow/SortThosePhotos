@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Album Management
+ * SortThosePhotos
  *
- * A tool to help high volume photographers manage their albums
+ * A tool to help high volume photographers sort their photos
  */
 
 namespace App\Models\ShootProof;
