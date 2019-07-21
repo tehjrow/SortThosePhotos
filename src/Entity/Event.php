@@ -52,6 +52,11 @@ class Event
      */
     private $hasPublishedToService = false;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $csvFilename;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -125,6 +130,18 @@ class Event
     public function setHasPublishedToService(bool $hasPublishedToService): self
     {
         $this->hasPublishedToService = $hasPublishedToService;
+
+        return $this;
+    }
+
+    public function getCsvFilename(): ?string
+    {
+        return $this->csvFilename;
+    }
+
+    public function setCsvFilename(?string $csvFilename): self
+    {
+        $this->csvFilename = $csvFilename;
 
         return $this;
     }
