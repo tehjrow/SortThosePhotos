@@ -10,10 +10,11 @@
             </div>
             <div class="col-2">
                 {{ form_start(eventForm) }}
-                    {{ form_widget(eventForm) }}
+                    {{ form_row(eventForm.name) }}
+                    {{ form_row(eventForm._token) }}
 
                     <button type="submit" class="btn btn-primary">Create</button>
-                {{ form_end(eventForm) }}
+                {{ form_end(eventForm, {'render_rest': false}) }}
             </div>
             <div class="col">
 
