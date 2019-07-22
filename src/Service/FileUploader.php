@@ -14,7 +14,7 @@ class FileUploader
         $this->targetDirectory = $targetDirectory;
     }
 
-    public function upload(UploadedFile $file, string $extension = null)
+    public function upload(UploadedFile $file, string $directory, string $extension = null)
     {
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
@@ -22,7 +22,7 @@ class FileUploader
 
         try
         {
-            $file->move($this->getTargetDirectory(), $fileName);
+            $file->move($this->getTargetDirectory($directory), $fileName);
         } catch (FileException $e)
         {
             // ... handle exception if something happens during file upload
@@ -31,8 +31,8 @@ class FileUploader
         return $fileName;
     }
 
-    public function getTargetDirectory()
+    public function getTargetDirectory(string $directory)
     {
-        return $this->targetDirectory;
+        return $this->targetDirectory . "/" . $directory;
     }
 }
