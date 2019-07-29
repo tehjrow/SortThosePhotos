@@ -8,6 +8,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Album;
 use App\Entity\Event;
 use App\Form\EventFormType;
 use App\Models\ViewModels\EventViewModel;
@@ -135,7 +136,7 @@ class EventController extends AbstractController
     /**
      * @Route("/event/{id}/processcsv", name="event_csv_process", requirements={"id"="\d+"})
      */
-    public function eventProcessCsv($id, CsvProcessor $csvProcessor)
+    public function eventProcessCsv(EntityManagerInterface $em, $id, CsvProcessor $csvProcessor)
     {
         $event = $this->getDoctrine()
             ->getRepository(Event::class)
@@ -143,5 +144,9 @@ class EventController extends AbstractController
 
         $csvProcessor->processCsv($this->getUser()->getId(), $id, $event->getCsvFilename());
 
+        $albums = $this->getDoctrine()
+            ->getRepository(Album::class)
+            ->findBy(['eventId' => $id]);
+        dd($albums);
     }
 }
