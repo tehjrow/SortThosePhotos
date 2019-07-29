@@ -19,6 +19,11 @@ class Album
     /**
      * @ORM\Column(type="integer")
      */
+    private $userId;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
     private $eventId;
 
     /**
@@ -39,6 +44,18 @@ class Album
     public function getEventId(): ?int
     {
         return $this->eventId;
+    }
+
+    public function getUserId(): ?int
+    {
+        return $this->userId;
+    }
+
+    public function setUserId($userId): self
+    {
+        $this->userId = $userId;
+
+        return $this;
     }
 
     public function setEventId(int $eventId): self
