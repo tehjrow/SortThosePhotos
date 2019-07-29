@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190721173600 extends AbstractMigration
+final class Version20190729180228 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -29,6 +29,7 @@ final class Version20190721173600 extends AbstractMigration
         $this->addSql('CREATE TABLE sp_integration_credentials (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user_id INTEGER NOT NULL, access_token VARCHAR(255) DEFAULT NULL, refresh_token VARCHAR(255) DEFAULT NULL, expires_in VARCHAR(255) DEFAULT NULL, token_type VARCHAR(255) DEFAULT NULL, scope VARCHAR(255) DEFAULT NULL, stat VARCHAR(255) DEFAULT NULL)');
         $this->addSql('CREATE TABLE sp_event_details (event_id INTEGER NOT NULL, sp_event_id INTEGER DEFAULT NULL, sp_brand_id INTEGER DEFAULT NULL, PRIMARY KEY(event_id))');
         $this->addSql('CREATE TABLE sp_app_credentials (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, response_type VARCHAR(255) NOT NULL, client_id VARCHAR(255) NOT NULL, redirect_uri VARCHAR(255) NOT NULL, scope VARCHAR(255) NOT NULL, state VARCHAR(255) NOT NULL)');
+        $this->addSql('CREATE TABLE album (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, event_id INTEGER NOT NULL, name VARCHAR(255) NOT NULL, password VARCHAR(255) DEFAULT NULL)');
     }
 
     public function down(Schema $schema) : void
@@ -41,5 +42,6 @@ final class Version20190721173600 extends AbstractMigration
         $this->addSql('DROP TABLE sp_integration_credentials');
         $this->addSql('DROP TABLE sp_event_details');
         $this->addSql('DROP TABLE sp_app_credentials');
+        $this->addSql('DROP TABLE album');
     }
 }
