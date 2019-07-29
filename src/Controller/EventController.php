@@ -116,7 +116,7 @@ class EventController extends AbstractController
             $csvFile = $form['csv']->getData();
             if ($csvFile)
             {
-                $csvFilename = $fileUploader->upload($csvFile, "/csv/" . $this->getUser()->getId(), 'csv');
+                $csvFilename = $fileUploader->upload($csvFile, "csv/" . $this->getUser()->getId(), 'csv');
                 $event->setCsvFilename($csvFilename);
                 $event->setHasUploadedCsv(true);
 
