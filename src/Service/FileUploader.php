@@ -11,7 +11,7 @@ class FileUploader
 
     public function __construct($uploadBaseDirectory)
     {
-        $this->$uploadBaseDirectory = $uploadBaseDirectory;
+        $this->uploadBaseDirectory = $uploadBaseDirectory;
     }
 
     public function upload(UploadedFile $file, string $directory, string $extension = null)
