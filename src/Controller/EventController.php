@@ -12,6 +12,7 @@ use App\Entity\Event;
 use App\Form\EventFormType;
 use App\Models\ViewModels\EventViewModel;
 use App\Models\ViewModels\ServiceDetails;
+use App\Service\CsvProcessor;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -115,19 +116,32 @@ class EventController extends AbstractController
             $csvFile = $form['csv']->getData();
             if ($csvFile)
             {
-                $csvFilename = $fileUploader->upload($csvFile, $this->getUser()->getId(), 'csv');
+                $csvFilename = $fileUploader->upload($csvFile, "/csv/" . $this->getUser()->getId(), 'csv');
                 $event->setCsvFilename($csvFilename);
                 $event->setHasUploadedCsv(true);
 
                 $em->persist($event);
                 $em->flush();
 
-                return $this->redirectToRoute('event',['id' => $event->getId()]);
+                return $this->redirectToRoute('event_csv_process',['id' => $event->getId()]);
             }
         }
 
         return $this->render('csv/csv.html.twig',[
             'eventForm' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/event/{id}/processcsv", name="event_csv_process", requirements={"id"="\d+"})
+     */
+    public function eventProcessCsv($id, CsvProcessor $csvProcessor)
+    {
+        $event = $this->getDoctrine()
+            ->getRepository(Event::class)
+            ->find($id);
+
+        $csvProcessor->processCsv($this->getUser()->getId(), $id, $event->getCsvFilename());
+
     }
 }
