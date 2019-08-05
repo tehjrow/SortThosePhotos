@@ -30,7 +30,8 @@
         "symfony/validator": "4.3.*",
         "symfony/web-link": "4.3.*",
         "symfony/yaml": "4.3.*",
-        "ext-intl": "*"
+        "ext-intl": "*",
+        "yellowskies/qr-code-bundle": "1.2.7"
     },
     "require-dev": {
         "symfony/debug-pack": "*",
