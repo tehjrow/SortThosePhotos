@@ -8,11 +8,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Album;
 use App\Entity\Event;
 use App\Form\EventFormType;
 use App\Models\ViewModels\EventViewModel;
-use App\Models\ViewModels\ServiceDetails;
 use App\Service\CsvProcessor;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,14 +19,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class EventController
  * @package App\Controller
  * @IsGranted("ROLE_USER")
  *
- * Handle requests for the even resource
+ * Handle requests for the event resource
  */
 class EventController extends AbstractController
 {
@@ -39,10 +36,11 @@ class EventController extends AbstractController
      */
     public function index()
     {
-        // TODO Limit events to current user
         $events = $this->getDoctrine()
             ->getRepository(Event::class)
-            ->findAll();
+            ->findBy([
+                'userId' => $this->getUser()->getId()
+            ]);
 
         return $this->render('event/events.html.twig', [
             'events' => $events,

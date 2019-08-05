@@ -8,6 +8,12 @@
 
 namespace App\Models\ShootProof;
 
+/**
+ * Used to store the output from the ShootProof API response on a collection request.
+ *
+ * Class spCollection
+ * @package App\Models\ShootProof
+ */
 class spCollection
 {
     private $_items;
@@ -19,6 +25,9 @@ class spCollection
         $this->populateModel($response);
     }
 
+    /**
+     * @param string $response Raw HTTP response from an API request.
+     */
     private function populateModel($response)
     {
         $response = json_decode($response);

@@ -10,6 +10,12 @@ namespace App\Models\ShootProof;
 
 use App\Helpers\spApi;
 
+/**
+ * Helper class to get/post studio data to the ShootProof API.
+ *
+ * Class spStudio
+ * @package App\Models\ShootProof
+ */
 class spStudio
 {
     private $_spApi;
@@ -38,6 +44,11 @@ class spStudio
         return $response;
     }
 
+    /**
+     * Does a basic request to the ShootProof API to test the access_token.
+     *
+     * @return bool Is access_token valid
+     */
     public function isKeyValid()
     {
         $response = json_decode($this->_spApi->get('/studio'));

@@ -8,6 +8,12 @@
 
 namespace App\Helpers;
 
+/**
+ * Provides HTTP verb methods for connecting to the ShootProof API.
+ *
+ * Class spApi
+ * @package App\Helpers
+ */
 class spApi
 {
     private $_curl;

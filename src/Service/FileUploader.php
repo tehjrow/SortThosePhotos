@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * SortThosePhotos
+ *
+ * A tool to help high volume photographers sort their photos
+ */
+
 namespace App\Service;
 
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -14,6 +20,12 @@ class FileUploader
         $this->uploadBaseDirectory = $uploadBaseDirectory;
     }
 
+    /**
+     * @param UploadedFile $file File being uploaded.
+     * @param string $directory Directory to store file in.
+     * @param string|null $extension Optional extension, if null the system will guess.
+     * @return string Returns filename.
+     */
     public function upload(UploadedFile $file, string $directory, string $extension = null)
     {
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
