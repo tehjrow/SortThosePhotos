@@ -66,7 +66,7 @@ class EventController extends AbstractController
             $em->persist($event);
             $em->flush();
 
-            return $this->redirectToRoute('event',['id' => $event->getId()]);
+            return $this->redirectToRoute('event',['eventId' => $event->getId()]);
         }
 
         return $this->render('event/new.html.twig',[
@@ -75,15 +75,15 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/event/{id}", name="event", requirements={"id"="\d+"})
+     * @Route("/event/{eventId}", name="event", requirements={"id"="\d+"})
      *
      * Return single even and view
      */
-    public function event($id)
+    public function event($eventId)
     {
         $event = $this->getDoctrine()
             ->getRepository(Event::class)
-            ->find($id);
+            ->find($eventId);
 
         if (!$event)
         {
@@ -98,13 +98,13 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/event/{id}/csv", name="event_csv", requirements={"id"="\d+"})
+     * @Route("/event/{eventId}/csv", name="event_csv", requirements={"id"="\d+"})
      */
-    public function eventUploadCsv(EntityManagerInterface $em, Request $request, FileUploader $fileUploader, $id)
+    public function eventUploadCsv(EntityManagerInterface $em, Request $request, FileUploader $fileUploader, $eventId)
     {
         $event = $this->getDoctrine()
             ->getRepository(Event::class)
-            ->find($id);
+            ->find($eventId);
 
         $form = $this->createForm(EventFormType::class, $event);
         $form->handleRequest($request);
@@ -122,7 +122,7 @@ class EventController extends AbstractController
                 $em->persist($event);
                 $em->flush();
 
-                return $this->redirectToRoute('event_csv_process',['id' => $event->getId()]);
+                return $this->redirectToRoute('event_csv_process',['eventId' => $event->getId()]);
             }
         }
 
@@ -132,7 +132,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/event/{id}/processcsv", name="event_csv_process", requirements={"id"="\d+"})
+     * @Route("/event/{eventId}/processcsv", name="event_csv_process", requirements={"id"="\d+"})
      */
     public function eventProcessCsv($eventId, CsvProcessor $csvProcessor)
     {
@@ -142,6 +142,6 @@ class EventController extends AbstractController
 
         $csvProcessor->processCsv($this->getUser()->getId(), $eventId, $event->getCsvFilename());
 
-        return $this->redirectToRoute('event',['id' => $event->getId()]);
+        return $this->redirectToRoute('event',['eventId' => $event->getId()]);
     }
 }

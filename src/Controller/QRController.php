@@ -10,17 +10,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class QRController extends AbstractController
 {
     /**
-     * @Route("/event/{id}/qr", name="qr", requirements={"id"="\d+"})
+     * @Route("/event/{eventId}/qr", name="qr", requirements={"id"="\d+"})
      */
-    public function index($id)
+    public function index($eventId)
     {
         $albums = $this->getDoctrine()
             ->getRepository(Album::class)
             ->findBy([
-                'eventId' => $id
+                'eventId' => $eventId
             ]);
 
-        $barcodes = '';
+        $barCodes = '';
 
         foreach ($albums as $album)
         {
@@ -33,12 +33,12 @@ class QRController extends AbstractController
                 'color'  => 'green',
             );
             $generator = new Generator();
-            $barcode = $generator->generate($options);
-            $barcodes .= $barcode;
+            $barCode = $generator->generate($options);
+            $barCodes .= $barCode;
         }
 
         return $this->render('qr/index.html.twig', [
-            'barcodes' => $barcodes,
+            'barCodes' => $barCodes,
         ]);
     }
 }
