@@ -1,16 +1,32 @@
 <?php
 
+/**
+ * SortThosePhotos
+ *
+ * A tool to help high volume photographers sort their photos
+ */
+
 namespace App\Controller;
 
 use App\Entity\Album;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Skies\QRcodeBundle\Generator\Generator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class QRController
+ * @package App\Controller
+ * @IsGranted("ROLE_USER")
+ *
+ * Handle requests for the QR resources
+ */
 class QRController extends AbstractController
 {
     /**
      * @Route("/event/{eventId}/qr", name="qr", requirements={"id"="\d+"})
+     *
+     * Generate and show QR codes for albums
      */
     public function index($eventId)
     {

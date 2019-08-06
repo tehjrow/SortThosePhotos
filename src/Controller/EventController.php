@@ -59,7 +59,6 @@ class EventController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
-            /** @var Event $event */
             $event = $form->getData();
             $event->setUserId($this->getUser()->getId());
 
@@ -91,7 +90,6 @@ class EventController extends AbstractController
         }
 
         $eventViewModel = new EventViewModel($event);
-
         return $this->render('event/event.html.twig',[
             'eventViewModel' => $eventViewModel
         ]);
@@ -99,6 +97,8 @@ class EventController extends AbstractController
 
     /**
      * @Route("/event/{eventId}/csv", name="event_csv", requirements={"id"="\d+"})
+     *
+     * Performs upload of CSV file from form
      */
     public function eventUploadCsv(EntityManagerInterface $em, Request $request, FileUploader $fileUploader, $eventId)
     {
@@ -107,12 +107,12 @@ class EventController extends AbstractController
             ->find($eventId);
 
         $form = $this->createForm(EventFormType::class, $event);
-        $form->handleRequest($request);
 
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
-            /** @var UploadedFile $csvFile */
             $csvFile = $form['csv']->getData();
+
             if ($csvFile)
             {
                 $csvFilename = $fileUploader->upload($csvFile, "csv/" . $this->getUser()->getId(), 'csv');
@@ -133,6 +133,8 @@ class EventController extends AbstractController
 
     /**
      * @Route("/event/{eventId}/processcsv", name="event_csv_process", requirements={"id"="\d+"})
+     *
+     * Processes CSV by turning it into an array and storing in the database
      */
     public function eventProcessCsv($eventId, CsvProcessor $csvProcessor)
     {
