@@ -15,18 +15,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * Handle requests for the QR resources
+ *
  * Class QRController
  * @package App\Controller
  * @IsGranted("ROLE_USER")
- *
- * Handle requests for the QR resources
  */
 class QRController extends AbstractController
 {
     /**
-     * @Route("/event/{eventId}/qr", name="qr", requirements={"id"="\d+"})
-     *
      * Generate and show QR codes for albums
+     *
+     * @Route("/event/{eventId}/qr", name="qr", requirements={"id"="\d+"})
      */
     public function index($eventId)
     {

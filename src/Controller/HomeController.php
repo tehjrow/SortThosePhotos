@@ -13,10 +13,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * Handle requests for home
+ *
  * Class HomeController
  * @package App\Controller
- *
- * Handle requests for home
  */
 class HomeController extends AbstractController
 {

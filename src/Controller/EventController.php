@@ -21,18 +21,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * Handle requests for the event resource
+ *
  * Class EventController
  * @package App\Controller
  * @IsGranted("ROLE_USER")
- *
- * Handle requests for the event resource
  */
 class EventController extends AbstractController
 {
     /**
-     * @Route("/events", name="events")
-     *
      * Returns events view with list of events
+     *
+     * @Route("/events", name="events")
      */
     public function index()
     {
@@ -48,9 +48,9 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/event/new", name="event_new")
-     *
      * Create new event for user
+     *
+     * @Route("/event/new", name="event_new")
      */
     public function new(EntityManagerInterface $em, Request $request)
     {
@@ -74,9 +74,9 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/event/{eventId}", name="event", requirements={"id"="\d+"})
-     *
      * Return single even and view
+     *
+     * @Route("/event/{eventId}", name="event", requirements={"id"="\d+"})
      */
     public function event($eventId)
     {
@@ -96,9 +96,9 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/event/{eventId}/csv", name="event_csv", requirements={"id"="\d+"})
-     *
      * Performs upload of CSV file from form
+     *
+     * @Route("/event/{eventId}/csv", name="event_csv", requirements={"id"="\d+"})
      */
     public function eventUploadCsv(EntityManagerInterface $em, Request $request, FileUploader $fileUploader, $eventId)
     {
@@ -132,9 +132,9 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/event/{eventId}/processcsv", name="event_csv_process", requirements={"id"="\d+"})
-     *
      * Processes CSV by turning it into an array and storing in the database
+     *
+     * @Route("/event/{eventId}/processcsv", name="event_csv_process", requirements={"id"="\d+"})
      */
     public function eventProcessCsv($eventId, CsvProcessor $csvProcessor)
     {

@@ -11,6 +11,7 @@ namespace App\Controller;
 use App\Entity\ShootProof\SpAppCredentials;
 use App\Entity\ShootProof\SpIntegrationCredentials;
 use App\Models\ShootProof\spStudio;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,19 +19,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
+ * Handle settings resource
+ *
  * Class SettingsController
  * @package App\Controller
- *
- * Handle settings resource
  */
 class SettingsController extends AbstractController
 {
     /**
+     * Return settings and settings view
+     *
      * @Route("/settings", name="settings")
      *
      * @IsGranted("ROLE_USER")
-     *
-     * Return settings and settings view
      */
     public function index()
     {
@@ -52,11 +53,11 @@ class SettingsController extends AbstractController
     }
 
     /**
+     * Redirect to ShootProof authorization page
+     *
      * @Route("/authorize/shootproof", name="auth_shootproof")
      *
      * @IsGranted("ROLE_USER")
-     *
-     * Redirect to ShootProof authorization page
      */
     public function enableSpIntegration()
     {
@@ -72,6 +73,7 @@ class SettingsController extends AbstractController
             return new Response("No ShootProof App credentials found on server, please contact the admin.", 500);
         }
 
+        // Build ShootProof authorization query
         $data = array (
             'response_type' => $spAppCredentials->getResponseType(),
             'client_id' => $spAppCredentials->getClientId(),
@@ -86,25 +88,24 @@ class SettingsController extends AbstractController
 
         $params = trim($params, '&');
 
+        // Send user to ShootProof for authorization
         return $this->redirect($_ENV['BASE_SP_AUTH_URL'] . '/new' . '?' . $params);
     }
 
     /**
+     * Gets response code from ShootProof authorization, requests access token and stores it
+     *
      * @Route("/authorize/shootproof/response", name="auth_shootproof_respose")
      *
      * @IsGranted("ROLE_USER")
-     *
-     * Gets response code from ShootProof authorization, requests access token and stores it
      */
-    public function spIntegrationResponse(Request $request)
+    public function spIntegrationResponse(EntityManagerInterface $em, Request $request)
     {
-        // TODO break this function up
+        // Get code and state from request
         $code = $request->query->get('code');
-        $userId = $this->getUser()->getId();
-
-
         // TODO Need to check this and be sure it's the same that was sent
         $state = $request->query->get('state');
+        $userId = $this->getUser()->getId();
 
         $spAppCredentials = $this->
             getDoctrine()->
@@ -120,6 +121,8 @@ class SettingsController extends AbstractController
                 'userId' => $userId
             ]);
 
+        // TODO Need to move the access_token request to another class
+        // Build access token request
         $data = array(
             'grant_type' => 'authorization_code',
             'client_id' => $spAppCredentials->getClientId(),
@@ -134,6 +137,7 @@ class SettingsController extends AbstractController
 
         $params = trim($params, '&');
 
+        // Request tokens
         $_curl = curl_init();
         curl_setopt($_curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($_curl, CURLOPT_URL, $_ENV['BASE_SP_AUTH_URL'] . '/token' . '?' . $params);
@@ -141,15 +145,16 @@ class SettingsController extends AbstractController
         curl_setopt($_curl, CURLOPT_POSTFIELDS, '');
         $_response = json_decode(curl_exec($_curl));
 
+        // Store token response in database
         $spIntegrationCredentials->setAccessToken($_response->access_token);
         $spIntegrationCredentials->setRefreshToken($_response->refresh_token);
         $spIntegrationCredentials->setExpiresIn($_response->expires_in);
         $spIntegrationCredentials->setTokenType($_response->token_type);
         $spIntegrationCredentials->setScope($_response->scope);
         $spIntegrationCredentials->setStat($_response->stat);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($spIntegrationCredentials);
-        $entityManager->flush();
+
+        $em->persist($spIntegrationCredentials);
+        $em->flush();
 
         return $this->redirectToRoute('settings');
     }
